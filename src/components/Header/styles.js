@@ -7,7 +7,7 @@ export const Container = styled.div`
 
 export const Content = styled.div`
   height: 64px;
-  max-width: 900px;
+  width: 100%;
   margin: 0 auto;
   display: flex;
   justify-content: space-between;
@@ -18,14 +18,17 @@ export const Content = styled.div`
     align-items: center;
 
     img {
-      margin-right: 20px;
-      padding-right: 20px;
+      height: 26px;
+      margin-right: 30px;
+      padding-right: 30px;
       border-right: 1px solid #eee;
     }
 
     a {
       font-weight: bold;
-      color: #7159c1;
+      font-size: 15px;
+      color: #999999;
+      margin-right: 20px;
     }
   }
 
@@ -37,9 +40,7 @@ export const Content = styled.div`
 
 export const Profile = styled.div`
   display: flex;
-  margin-left: 20px;
-  padding-left: 20px;
-  border-left: 1px solid #eee;
+  margin-right: 30px;
 
   div {
     text-align: right;
@@ -47,25 +48,17 @@ export const Profile = styled.div`
 
     strong {
       display: block;
-      color: #333;
+      color: #666666;
+      margin-bottom: 10px;
+      font-size: 14px;
     }
 
     a {
       display: block;
-      margin-top: 2px;
-      font-size: 12px;
-      color: #999;
+      margin-top: 10px;
+      font-size: 14px;
+      text-align: right;
+      color: #de3b3b;
     }
-  }
-
-  img {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-  }
-
-  .sb-avatar__text {
-    border-radius: 50%;
-    padding-right: 35%;
   }
 `;

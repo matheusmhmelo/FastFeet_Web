@@ -1,19 +1,42 @@
 import React from 'react';
-// import Avatar from 'react-avatar';
 // import { useSelector } from 'react-redux';
-// import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
-// import Notifications from '~/components/Notifications';
-
-// import logo from '~/assets/logo-purple.svg';
-import { Container, Content } from './styles';
+import logo from '~/assets/fastfeet-logo.png';
+import { Container, Content, Profile } from './styles';
 
 export default function Header() {
   // const profile = useSelector(state => state.user.profile);
+  const colorType = '#444444';
 
   return (
     <Container>
-      <Content />
+      <Content>
+        <nav>
+          <img src={logo} alt="FastFeet" />
+          <NavLink to="/dashboard" activeStyle={{ color: colorType }}>
+            DASHBOARD
+          </NavLink>
+          <NavLink to="/deliverymen" activeStyle={{ color: colorType }}>
+            ENTREGADORES
+          </NavLink>
+          <NavLink to="/recipients" activeStyle={{ color: colorType }}>
+            DESTINATÁRIOS
+          </NavLink>
+          <NavLink to="/problems" activeStyle={{ color: colorType }}>
+            PROBLEMAS
+          </NavLink>
+        </nav>
+
+        <aside>
+          <Profile>
+            <div>
+              <strong>Admin FastFeet</strong>
+              <NavLink to="/profile">Sair do Sistema</NavLink>
+            </div>
+          </Profile>
+        </aside>
+      </Content>
     </Container>
   );
 }
