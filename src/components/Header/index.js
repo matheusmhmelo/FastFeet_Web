@@ -1,13 +1,20 @@
 import React from 'react';
-// import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
+
+import { signOut } from '~/store/modules/auth/actions';
 
 import logo from '~/assets/fastfeet-logo.png';
 import { Container, Content, Profile } from './styles';
 
 export default function Header() {
-  // const profile = useSelector(state => state.user.profile);
+  const dispatch = useDispatch();
+  const admin = useSelector(state => state.admin.profile);
   const colorType = '#444444';
+
+  function handleSignOut() {
+    dispatch(signOut());
+  }
 
   return (
     <Container>
@@ -31,8 +38,10 @@ export default function Header() {
         <aside>
           <Profile>
             <div>
-              <strong>Admin FastFeet</strong>
-              <NavLink to="/profile">Sair do Sistema</NavLink>
+              <strong>{admin.name}</strong>
+              <a href="/" onClick={handleSignOut}>
+                Sair do Sistema
+              </a>
             </div>
           </Profile>
         </aside>
