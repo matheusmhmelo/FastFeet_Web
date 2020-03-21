@@ -3,25 +3,32 @@ import React from 'react';
 import { FaPlus, FaPen } from 'react-icons/fa';
 import { MdDeleteForever } from 'react-icons/md';
 
+import { NavLink } from 'react-router-dom';
+
 import { Container } from './styles';
 import { TableItem, TableHeader, Table } from '~/styles/tables.js';
-import { PageTitle, SearchForm, NewContent } from '~/styles/pageHeader.js';
+import { PageTitle, Header, NewContent } from '~/styles/pageHeader.js';
 
 import More from '~/components/More/Small';
+import history from '~/services/history';
 
-export default function Dashboard() {
+export default function Recipients() {
+  function handleAddNew() {
+    history.push('/recipients/recipient');
+  }
+
   return (
     <Container>
       <PageTitle>Gerenciando destinatários</PageTitle>
 
-      <SearchForm>
+      <Header>
         <div>
           <input type="text" placeholder="Buscar por destinatários" />
         </div>
-        <NewContent type="button">
+        <NewContent type="button" onClick={handleAddNew}>
           <FaPlus /> <span>CADASTRAR</span>
         </NewContent>
-      </SearchForm>
+      </Header>
 
       <Table>
         <TableHeader firstSmall>
@@ -36,14 +43,14 @@ export default function Dashboard() {
           <td>Rua Treze de Maio</td>
           <td>
             <More>
-              <a href="/">
+              <NavLink to="/recipients/recipient/1">
                 <FaPen size={15} style={{ color: '#4D85EE' }} />
                 <span>Editar</span>
-              </a>
-              <a href="/">
+              </NavLink>
+              <NavLink to="#">
                 <MdDeleteForever size={15} style={{ color: '#DE3B3B' }} />
                 <span>Excluir</span>
-              </a>
+              </NavLink>
             </More>
           </td>
         </TableItem>

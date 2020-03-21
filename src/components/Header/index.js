@@ -21,8 +21,8 @@ export default function Header() {
       <Content>
         <nav>
           <img src={logo} alt="FastFeet" />
-          <NavLink to="/dashboard" activeStyle={{ color: colorType }}>
-            DASHBOARD
+          <NavLink to="/deliveries" activeStyle={{ color: colorType }}>
+            ENTREGAS
           </NavLink>
           <NavLink to="/deliverymen" activeStyle={{ color: colorType }}>
             ENTREGADORES

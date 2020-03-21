@@ -61,3 +61,9 @@ export const TableItem = styled.tr`
     border-radius: 0 4px 4px 0;
   }
 `;
+
+export const TableDeliveries = styled(TableItem)`
+  td {
+    max-width: 150px;
+  }
+`;

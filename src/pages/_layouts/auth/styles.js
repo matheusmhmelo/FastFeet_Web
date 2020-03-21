@@ -38,6 +38,7 @@ export const Content = styled.div`
       padding: 0 15px;
       margin: 0 0 10px;
       color: #444444;
+      width: 100%;
 
       &::placeholder {
         color: ${darken(0.25, '#dddddd')};

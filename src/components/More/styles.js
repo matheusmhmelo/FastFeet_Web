@@ -61,4 +61,23 @@ export const Action = styled.div`
       margin-left: 10px;
     }
   }
+
+  button {
+    font-size: 16px;
+    display: flex;
+    justify-content: left;
+    text-align: left;
+    padding: 10px 0;
+
+    background: none;
+    color: #999999;
+
+    & + a {
+      border-top: 1px solid ${darken(0.2, '#eeeeee')};
+    }
+
+    span {
+      margin-left: 10px;
+    }
+  }
 `;
