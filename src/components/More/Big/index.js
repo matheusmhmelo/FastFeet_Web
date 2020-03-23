@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import useClickOutside from 'click-outside-hook';
 
 import { Container, Badge, ActionsList, Action } from '../styles';
 
 export default function More({ children }) {
   const [visible, setVisible] = useState(false);
+  const ref = useClickOutside(() => {
+    if (visible) {
+      setVisible(!visible);
+    }
+  });
 
   function handleToggleVisible() {
     setVisible(!visible);
@@ -16,7 +22,7 @@ export default function More({ children }) {
         <button type="button">···</button>
       </Badge>
 
-      <ActionsList visible={visible}>
+      <ActionsList visible={visible} ref={ref}>
         <Action>{children}</Action>
       </ActionsList>
     </Container>

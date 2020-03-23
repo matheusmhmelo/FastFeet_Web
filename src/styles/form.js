@@ -37,32 +37,31 @@ export const InputLine = styled.div`
       padding: 0 15px;
       color: #444444;
       width: 100%;
+      margin-bottom: 5px;
 
       &::placeholder {
         color: ${darken(0.25, '#dddddd')};
       }
+    }
 
-      > span {
-        color: #fb6f91;
-        align-self: flex-start;
-        margin: 0 0 10px;
-        font-weight: bold;
-      }
+    > span {
+      color: #fb6f91;
+      align-self: flex-start;
+      margin: 0 0 10px;
+      font-weight: bold;
     }
   }
 `;
 
-export const SelectName = styled.span`
-  display: flex;
-  padding: 9px 0;
-  font-size: 14px;
-  font-weight: bolder;
-  color: #444444;
-`;
-
-export const SelectDiv = styled.div`
-  select {
-    height: 20px;
+export const SelectDiv = styled(InputLine)`
+  div {
+    > span {
+      display: flex;
+      padding: 9px 0;
+      font-size: 14px;
+      font-weight: bolder;
+      color: #444444;
+    }
   }
 `;
 

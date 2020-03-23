@@ -2,12 +2,13 @@ import React from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
 import { IoMdEye } from 'react-icons/io';
+import PropTypes from 'prop-types';
 
 import { NavLink } from 'react-router-dom';
 
 import { Title, Content } from './styles';
 
-export default function ProblemsModal() {
+export default function ProblemsModal({ description }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -47,21 +48,14 @@ export default function ProblemsModal() {
             maxWidth: '450px',
           }}
         >
-          <Title>Transition modal</Title>
-          <Content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in
-            mauris et felis eleifend elementum vel quis lectus. Vivamus dapibus
-            nisi augue, vitae ultrices ligula elementum at. Proin ut metus in mi
-            tincidunt vestibulum a a felis. Aenean dictum libero eu urna
-            tristique vestibulum. Fusce feugiat justo et augue facilisis, sit
-            amet ornare eros consequat. Suspendisse semper risus feugiat nisl
-            commodo, sed mollis neque auctor. Nullam eu fringilla lectus.
-            Phasellus sed sapien sed turpis imperdiet maximus. Aenean ante
-            nulla, bibendum non facilisis at, facilisis eget ex. In ut quam et
-            tellus aliquet tincidunt.
-          </Content>
+          <Title>VISUALIZAR PROBLEMA</Title>
+          <Content>{description}</Content>
         </div>
       </Modal>
     </div>
   );
 }
+
+ProblemsModal.propTypes = {
+  description: PropTypes.string.isRequired,
+};

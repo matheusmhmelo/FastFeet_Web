@@ -1,104 +1,121 @@
 /* eslint-disable import/extensions */
-import React from 'react';
-import { IoMdEye } from 'react-icons/io';
+import React, { useState, useEffect } from 'react';
+import { FaTruck } from 'react-icons/fa';
 import { MdDeleteForever } from 'react-icons/md';
+import { toast } from 'react-toastify';
 
 import { NavLink } from 'react-router-dom';
 
 import ProblemsModal from './Modal';
 
-import { Container } from './styles';
+import { Container, NoContent, PageActions } from './styles';
 import { TableItem, TableHeader, Table } from '~/styles/tables.js';
 import { PageTitle } from '~/styles/pageHeader.js';
 
 import More from '~/components/More/Small';
 
+import api from '~/services/api';
+
 export default function Problems() {
-  const text =
-    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec inmauris et felis eleifend elementum vel quis lecLorem ipsum dolor sitamet, consectetur adipiscing elit. Donec in mauris et felis eleifendelementum vel quis lectus…';
+  const [problems, setProblems] = useState([]);
+  const [page, setPage] = useState(1);
+
+  async function loadProblem() {
+    const response = await api.get(`problem?page=${page}`);
+    setProblems(response.data);
+  }
+
+  useEffect(() => {
+    loadProblem();
+  }, [page]);
+
+  async function handleCancel(delivery_id) {
+    const confirm = window.confirm(
+      'Tem certeza que deseja cancelar essa entrega?'
+    );
+
+    if (confirm) {
+      try {
+        await api.delete(`problem/${delivery_id}/cancel-delivery`);
+        toast.success('Entrega cancelada com sucesso!');
+      } catch (err) {
+        toast.error(
+          'Erro no cancelamento, verifique se a entrega já foi cancelada!'
+        );
+      }
+    }
+  }
+
+  async function handlePage(action) {
+    setPage(action === 'back' ? page - 1 : page + 1);
+  }
 
   return (
     <Container>
       <PageTitle>Problemas na entrega</PageTitle>
 
-      <Table>
-        <TableHeader firstSmall>
-          <th>Encomenda</th>
-          <th>Problema</th>
-          <th>Ações</th>
-        </TableHeader>
-        <TableItem>
-          <td>#01</td>
-          <td>{text.length > 115 ? `${text.substr(0, 115)}...` : text}</td>
-          <td>
-            <More>
-              <ProblemsModal />
+      {problems.length !== 0 ? (
+        <Table>
+          <TableHeader firstSmall>
+            <th>Encomenda</th>
+            <th>Problema</th>
+            <th>Ações</th>
+          </TableHeader>
 
-              <NavLink to="#">
-                <MdDeleteForever size={15} style={{ color: '#DE3B3B' }} />
-                <span>Excluir</span>
-              </NavLink>
-            </More>
-          </td>
-        </TableItem>
-        <TableItem>
-          <td>#01</td>
-          <td>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in
-            mauris et felis eleifend elementum vel quis lectus…
-          </td>
-          <td>
-            <More>
-              <a href="/">
-                <IoMdEye size={15} style={{ color: '#8E5BE8' }} />
-                <span>Visualizar</span>
-              </a>
-              <a href="/">
-                <MdDeleteForever size={15} style={{ color: '#DE3B3B' }} />
-                <span>Excluir</span>
-              </a>
-            </More>
-          </td>
-        </TableItem>
-        <TableItem>
-          <td>#01</td>
-          <td>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in
-            mauris et felis eleifend elementum vel quis lectus…
-          </td>
-          <td>
-            <More>
-              <a href="/">
-                <IoMdEye size={15} style={{ color: '#8E5BE8' }} />
-                <span>Visualizar</span>
-              </a>
-              <a href="/">
-                <MdDeleteForever size={15} style={{ color: '#DE3B3B' }} />
-                <span>Excluir</span>
-              </a>
-            </More>
-          </td>
-        </TableItem>
-        <TableItem>
-          <td>#01</td>
-          <td>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec in
-            mauris et felis eleifend elementum vel quis lectus…
-          </td>
-          <td>
-            <More>
-              <a href="/">
-                <IoMdEye size={15} style={{ color: '#8E5BE8' }} />
-                <span>Visualizar</span>
-              </a>
-              <a href="/">
-                <MdDeleteForever size={15} style={{ color: '#DE3B3B' }} />
-                <span>Excluir</span>
-              </a>
-            </More>
-          </td>
-        </TableItem>
-      </Table>
+          {problems.map(problem => (
+            <TableItem key={problem.id}>
+              <td>#{problem.delivery_id}</td>
+              <td>
+                {problem.description.length > 100
+                  ? `${problem.description.substr(0, 100)}...`
+                  : problem.description}
+              </td>
+              <td>
+                <More isProblem>
+                  <ProblemsModal description={problem.description} />
+
+                  <NavLink
+                    to="#"
+                    onClick={() => {
+                      handleCancel(problem.delivery_id);
+                    }}
+                  >
+                    <MdDeleteForever size={25} style={{ color: '#DE3B3B' }} />
+                    <span>Cancelar encomenda</span>
+                  </NavLink>
+                </More>
+              </td>
+            </TableItem>
+          ))}
+        </Table>
+      ) : (
+        <NoContent>
+          <div>
+            <div>
+              <FaTruck size={60} />
+            </div>
+            <span>Nenhum dado encontrado</span>
+          </div>
+        </NoContent>
+      )}
+
+      <PageActions>
+        <button
+          type="button"
+          disabled={page < 2}
+          onClick={() => handlePage('back')}
+        >
+          Anterior
+        </button>
+        <span>Página {page}</span>
+        <button
+          type="button"
+          onClick={() => handlePage('next')}
+          disabled={problems.length === 0}
+        >
+          Próximo
+        </button>
+      </PageActions>
     </Container>
   );
 }

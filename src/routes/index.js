@@ -41,7 +41,7 @@ export default function Routes() {
       <Route path="/deliverymen" component={Deliverymen} isPrivate />
 
       <Route
-        path="/recipients/recipient/:recipiend_id"
+        path="/recipients/recipient/:recipient_id"
         component={Recipient}
         isPrivate
       />

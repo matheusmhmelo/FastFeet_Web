@@ -37,6 +37,7 @@ module.exports = {
     "no-underscore-dangle": "off",
     camelcase: "off",
     "no-console": ["error", { allow: ["tron"] }],
+    "no-alert": "off"
   },
   settings: {
     "import/resolver": {

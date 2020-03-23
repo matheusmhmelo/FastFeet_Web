@@ -1,12 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { IoMdImage } from 'react-icons/io';
 import { useField } from '@rocketseat/unform';
+import PropTypes from 'prop-types';
 
 import api from '~/services/api';
 
 import { Container } from './styles';
 
-export default function AvatarInput() {
+export default function AvatarInput({ avatar, setAvatarId }) {
   const { defaultValue, registerField } = useField('avatar');
 
   const [file, setFile] = useState(defaultValue && defaultValue.id);
@@ -24,6 +25,13 @@ export default function AvatarInput() {
     }
   }, [ref, registerField]);
 
+  useEffect(() => {
+    if (avatar) {
+      setFile(avatar.id);
+      setPreview(avatar.url);
+    }
+  }, [avatar]);
+
   async function handleChange(e) {
     const data = new FormData();
 
@@ -35,6 +43,7 @@ export default function AvatarInput() {
 
     setFile(id);
     setPreview(url);
+    setAvatarId(id);
   }
 
   return (
@@ -64,3 +73,11 @@ export default function AvatarInput() {
     </Container>
   );
 }
+
+AvatarInput.propTypes = {
+  avatar: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    url: PropTypes.string.isRequired,
+  }).isRequired,
+  setAvatarId: PropTypes.func.isRequired,
+};

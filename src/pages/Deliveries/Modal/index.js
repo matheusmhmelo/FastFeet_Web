@@ -2,14 +2,13 @@ import React from 'react';
 import Backdrop from '@material-ui/core/Backdrop';
 import Modal from '@material-ui/core/Modal';
 import { IoMdEye } from 'react-icons/io';
+import PropTypes from 'prop-types';
 
 import { NavLink } from 'react-router-dom';
 
 import { Title, Divisor, Signature, SignatureDivisor } from './styles';
 
-export default function DeliveryModal() {
-  const signature = require('~/assets/assinatura.png');
-
+export default function DeliveryModal({ content }) {
   const [open, setOpen] = React.useState(false);
 
   const handleOpen = () => {
@@ -50,26 +49,50 @@ export default function DeliveryModal() {
           }}
         >
           <Divisor>
-            <Title>Informaçõesa da encomenda</Title>
-            <p>Rua Beethoven, 1729</p>
-            <p>Diadema - SP</p>
-            <p>09960-580</p>
+            <Title>Informações da encomenda</Title>
+            <p>{content.recipient.address}</p>
+            <p>
+              {content.recipient.city} - {content.recipient.state}
+            </p>
+            <p>{content.recipient.zipcode}</p>
           </Divisor>
           <Divisor>
-            <Title>Informaçõesa da encomenda</Title>
+            <Title>Datas</Title>
             <p>
-              <b>Retirada: </b>25/01/2020
+              <b>Retirada: </b>
+              {content.start_formated}
             </p>
             <p>
-              <b>Entrega: </b>25/01/2020
+              <b>Entrega: </b>
+              {content.end_formated}
             </p>
           </Divisor>
-          <Title>Assinatura do destinatário</Title>
-          <SignatureDivisor>
-            <Signature src={signature} />
-          </SignatureDivisor>
+          {content.signature && (
+            <>
+              <Title>Assinatura do destinatário</Title>
+              <SignatureDivisor>
+                <Signature src={content.signature.url} />
+              </SignatureDivisor>
+            </>
+          )}
         </div>
       </Modal>
     </div>
   );
 }
+
+DeliveryModal.propTypes = {
+  content: PropTypes.shape({
+    recipient: PropTypes.shape({
+      address: PropTypes.string.isRequired,
+      city: PropTypes.string.isRequired,
+      state: PropTypes.string.isRequired,
+      zipcode: PropTypes.string.isRequired,
+    }).isRequired,
+    start_formated: PropTypes.string.isRequired,
+    end_formated: PropTypes.string.isRequired,
+    signature: PropTypes.shape({
+      url: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};

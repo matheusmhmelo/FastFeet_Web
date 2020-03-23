@@ -7,6 +7,10 @@ export const Container = styled.div`
 export const Badge = styled.button`
   background: none;
   border: 0;
+
+  button {
+    background-color: #fff;
+  }
 `;
 
 export const ActionsList = styled.div`

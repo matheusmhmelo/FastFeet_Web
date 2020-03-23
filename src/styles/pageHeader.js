@@ -22,6 +22,7 @@ export const Header = styled.div`
       width: 280px;
       height: 36px;
       background: url(${searchIcon}) no-repeat center right 7px;
+      background-color: #fff;
       border-radius: 4px;
       border: 1px solid #dddddd;
       padding-left: 10px;
