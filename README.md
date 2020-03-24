@@ -1,6 +1,6 @@
-<h3 align="center">
+<h1 align="center">
   FastFeet Web
-</h3>
+</h1>
 
 <p align="justify">🇧🇷 Software de gerenciamento de entregas para uma transportadora, gerenciamento de entregadores, destinatários e problemas com entregas. O administrador pode inserir novas informações ou editar informações já registradas.</p>
 
