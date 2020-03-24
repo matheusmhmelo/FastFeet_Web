@@ -6,6 +6,22 @@
 
 <p align="justify">🇺🇸 Software for management of deliveries for a delivery company, management of deliverymen, recipients and problems with the deliveries. The administrato can insert new data or update data that are already registered on software.</p>
 
+### Login
+
+![](https://i.imgur.com/weInfYT.gif)
+
+### Search and Management
+
+![](https://i.imgur.com/GfJMMbY.gif)
+
+### Add Content and Update
+
+![](https://i.imgur.com/Hpt1rTL.gif)
+
+### Delivery Problems and Cancel Delivery
+
+![](https://i.imgur.com/uIl1DyG.gif)
+
 <h1>🇧🇷 Sobre a aplicação</h1>
 
 ## Instalação e execução
