@@ -10,7 +10,7 @@ import ProblemsModal from './Modal';
 
 import { Container, NoContent, PageActions } from './styles';
 import { TableItem, TableHeader, Table } from '~/styles/tables.js';
-import { PageTitle } from '~/styles/pageHeader.js';
+import { PageTitle, Header } from '~/styles/pageHeader.js';
 
 import More from '~/components/More/Small';
 
@@ -19,15 +19,22 @@ import api from '~/services/api';
 export default function Problems() {
   const [problems, setProblems] = useState([]);
   const [page, setPage] = useState(1);
+  const [query, setQuery] = useState(null);
 
   async function loadProblem() {
-    const response = await api.get(`problem?page=${page}`);
+    let url = `problem?page=${page}`;
+
+    if (query) {
+      url = `problem?page=${page}&q=${query}`;
+    }
+
+    const response = await api.get(url);
     setProblems(response.data);
   }
 
   useEffect(() => {
     loadProblem();
-  }, [page]);
+  }, [page, query]);
 
   async function handleCancel(delivery_id) {
     const confirm = window.confirm(
@@ -53,6 +60,25 @@ export default function Problems() {
   return (
     <Container>
       <PageTitle>Problemas na entrega</PageTitle>
+
+      <form
+        onSubmit={e => {
+          e.preventDefault();
+        }}
+      >
+        <Header>
+          <div>
+            <input
+              type="text"
+              placeholder="Buscar pelo ID da encomenda"
+              onChange={e => {
+                setQuery(e.target.value);
+                setPage(1);
+              }}
+            />
+          </div>
+        </Header>
+      </form>
 
       {problems.length !== 0 ? (
         <Table>
