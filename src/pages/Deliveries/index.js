@@ -68,12 +68,12 @@ export default function Deliveries() {
     let url = `delivery?page=${page}`;
 
     if (problems) {
-      url = `problem/1?page=${page}`;
+      url = `problem/deliveries?page=${page}`;
     }
 
     if (query) {
       if (problems) {
-        url = `problem/1?page=${page}&q=${query}`;
+        url = `problem/deliveries?page=${page}&q=${query}`;
       } else {
         url = `delivery?page=${page}&q=${query}`;
       }
